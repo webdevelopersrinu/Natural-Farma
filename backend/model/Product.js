@@ -71,7 +71,19 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide a description for the product"],
     },
+    seasons: {
+      type: String,
+      required: [
+        true,
+        "Please provide the seasonal availability of the product",
+      ],
+    },
+    isVisible: {
+      type: Boolean,
+      default: false,
+    },
   },
+
   { timestamps: true }
 );
 

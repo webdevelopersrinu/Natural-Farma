@@ -19,10 +19,12 @@ const farmerAuth = asyncError(async (req, res, next) => {
   }
   let decodeToken = JWT.verify(token, process.env.FARMER_SCRETE_STR);
   const isFarmer = await Farmer.findById(decodeToken.id);
-  if (isFarmer.status !== "approved") {
-    return next(
-      new CustomError("Farmer not approved to perform this action.", 403)
+  if (!isFarmer) {
+    let err = new CustomError(
+      "Farmer is not found Please log in to access your accoun",
+      404
     );
+    return next(err);
   }
   req.farmerId = isFarmer.id;
   req.name = isFarmer.name;

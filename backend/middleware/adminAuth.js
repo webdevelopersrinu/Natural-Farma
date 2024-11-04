@@ -20,7 +20,7 @@ const adminAuth = asyncError(async (req, res, next) => {
   let decodeToken = JWT.verify(token, process.env.ADMIN_SCRETE_STR);
   const isAdmin = await Admin.findById(decodeToken.id);
   if (!isAdmin) {
-    return next(new CustomError("Please log in to access."));
+    return next(new CustomError("Please log in to access.",404));
   }
   req.adminId = isAdmin._id;
   // res.status(200).send("hello..........");
