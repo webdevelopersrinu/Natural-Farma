@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
     },
     cartId: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
     orderHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   },
   { timestamps: true }
 );

@@ -10,6 +10,13 @@ export const adminApiWorking = asyncError(async (req, res, next) => {
 });
 
 export const registerAdmin = asyncError(async (req, res, next) => {
+  const { adminScreteKey } = req.body;
+  if (!adminScreteKey) {
+    return next(new CustomError("Enter admin screte key login", 400));
+  }
+  if (adminScreteKey !== process.env.ADMIN_SCRETE_KEY) {
+    return next(new CustomError("Invalid admin screte key", 400));
+  }
   const newAdmin = await Admin.create(req.body);
   const token = JWT.sign({ id: newAdmin.id }, process.env.ADMIN_SCRETE_STR, {
     expiresIn: process.env.LOGIN_EXPAIER,
@@ -102,7 +109,6 @@ export const approveProduct = asyncError(async (req, res, next) => {
   });
 });
 
-
 // all farmers list
 export const allFarmerList = asyncError(async (req, res, next) => {
   const allFarmers = await Farmer.find();
@@ -112,7 +118,6 @@ export const allFarmerList = asyncError(async (req, res, next) => {
     allFarmers,
   });
 });
-
 
 // all products list
 export const allProductsList = asyncError(async (req, res, next) => {

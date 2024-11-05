@@ -13,6 +13,8 @@ import adminRoute from "./routes/adminRoutes.js";
 import productRoute from "./routes/productRoutes.js";
 import orderRoute from "./routes/orderRoutes.js";
 import CustomError from "./utils/customeError.js";
+import cartRoute from "./routes/cartRoutes.js";
+import wishlistRoute from "./routes/wishlistRoutes.js";
 
 const app = express();
 
@@ -38,6 +40,8 @@ app.use("/api/farmers", farmerRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute);
+app.use("/api/cart", cartRoute);
+app.use("/api/wishlist", wishlistRoute);
 
 app.all("*", (req, res, next) => {
   let err = new CustomError(`this page ${req.originalUrl} is not found!`, 404);
