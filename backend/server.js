@@ -10,6 +10,7 @@ process.on("uncaughtException", (err) => {
 import "dotenv/config";
 import app from "./app.js";
 import mongoose from "mongoose";
+import winston from 'winston';
 
 mongoose
   .connect(process.env.DB_CON_STR)
