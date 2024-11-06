@@ -31,13 +31,15 @@ export const placeOrder = asyncError(async (req, res, next) => {
   }
   let totalAmount = 0;
   const items = cart.items.map((item) => {
-    totalAmount += item.productId.price * item.quantity;
+    totalAmount += item.price * item.quantity;
     return {
       productId: item.productId._id,
       quantity: item.quantity,
-      priceAtPurchase: item.productId.price,
+      weightOption: item.weightOption,
+      priceAtPurchase: item.price,
     };
   });
+
   const order = new Order({
     userId,
     items,
@@ -46,7 +48,7 @@ export const placeOrder = asyncError(async (req, res, next) => {
     paymentStatus:
       paymentStatus || paymentMethod === "Cash on Delivery"
         ? "pending"
-        : "processing",
+        : "completed",
     address,
   });
   await order.save();
@@ -66,7 +68,6 @@ export const getUserOrders = asyncError(async (req, res, next) => {
   }
   res.status(200).json({
     status: "success",
-    results: orders.length,
     orders,
   });
 });

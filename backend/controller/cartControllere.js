@@ -3,12 +3,12 @@ import Product from "../model/Product.js";
 import asyncError from "../utils/asyncError.js";
 import CustomError from "../utils/customeError.js";
 
-export const addToCart = asyncError(async (req, res, nxet) => {
+export const addToCart = asyncError(async (req, res, next) => {
   const { productId, quantity = 1, weightOption } = req.body;
   const { userId } = req;
   const product = await Product.findById(productId);
   if (!product) {
-    return res.status(404).json({ error: "Product not found" });
+    return next(new CustomError("Product not found", 404))
   }
   let price;
   if (weightOption === "pricePerKg") {
@@ -18,7 +18,7 @@ export const addToCart = asyncError(async (req, res, nxet) => {
   } else if (weightOption === "quarterKg") {
     price = product.quarterKg;
   } else {
-    return nxet(new CustomError("Invalid weight option selected", 400))
+    return next(new CustomError("Invalid weight option selected", 400))
   }
   let cart = await Cart.findOne({ userId });
   if (!cart) {
