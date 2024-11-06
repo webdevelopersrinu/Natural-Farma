@@ -10,16 +10,10 @@ const cartSchema = new mongoose.Schema(
     },
     items: [
       {
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-          min: [1, "Quantity must be at least 1"],
-        },
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
+        quantity: { type: Number, required: true, min: 1 },
+        weightOption: { type: String, required: true, enum: ["pricePerKg", "halfKg", "quarterKg"] },
+        price: { type: Number, required: true },
       },
     ],
   },
