@@ -16,9 +16,10 @@ import CustomError from "./utils/customeError.js";
 import cartRoute from "./routes/cartRoutes.js";
 import wishlistRoute from "./routes/wishlistRoutes.js";
 
+
 const app = express();
 
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "15mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cros());
 app.use(helmet());
@@ -34,6 +35,8 @@ connectCloudinary();
 app.get("/", (req, res) => {
   res.status(200).send("welcome to natural farms");
 });
+
+
 
 app.use("/api/users", userRoute);
 app.use("/api/farmers", farmerRoute);
