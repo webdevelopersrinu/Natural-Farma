@@ -9,7 +9,7 @@ import Product from "../model/Product.js";
 
 mongoose
   .connect(
-    "mongodb+srv://webdevelopersrinu9:VcYbVR3jKlhxTQ9v@naturalfarms.m4h6n.mongodb.net/"
+    "mongodb"
   )
   .then(() => console.log("db Conection is success..."))
   .catch(() =>
